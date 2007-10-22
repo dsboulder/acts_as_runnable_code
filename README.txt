@@ -15,25 +15,25 @@ See the example app using this gem: http://tictactoe.mapleton.net
 
 == SYNOPSIS:
 
-require "sandbox"
-require "acts_as_runnable_code"
+	require "sandbox"
+	require "acts_as_runnable_code"
 
-class Algorithm < ActiveRecord::Base
-  # "code" is a database attribute in this case, containing user's code
-  acts_as_runnable_code :classes => ["Board"]
-end
+	class Algorithm < ActiveRecord::Base
+	  # "code" is a database attribute in this case, containing user's code
+	  acts_as_runnable_code :classes => ["Board"]
+	end
 
-class Board < ActiveRecord::Base
-  belongs_to :algorithm
-  acts_as_wrapped_class, :methods => [:moves, :make_move!, :turn, :log_info, :log_debug]
-  def moves; end
-  def make_move!(x,y); end;
-  ...
-end
+	class Board < ActiveRecord::Base
+	  belongs_to :algorithm
+	  acts_as_wrapped_class, :methods => [:moves, :make_move!, :turn, :log_info, :log_debug]
+	  def moves; end
+	  def make_move!(x,y); end;
+	  ...
+	end
 
-# Runs a user uploaded alogrithm in the context of a board
-board = Board.find(id)
-board.algorithm.run_code(board, :timeout => 0.5)
+	# Runs a user uploaded alogrithm in the context of a board
+	board = Board.find(id)
+	board.algorithm.run_code(board, :timeout => 0.5)
 
 == REQUIREMENTS:
 
