@@ -1,0 +1,6 @@
+== 1.0.1 / 2007-10-22
+* added gem dependency to acts_as_wrapped_class 
+
+== 1.0.0 / 2007-10-22
+
+* first relase

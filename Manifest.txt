@@ -1,0 +1,6 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+lib/acts_as_runnable_code.rb
+test/test_acts_as_runnable_code.rb
