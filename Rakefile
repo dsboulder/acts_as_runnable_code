@@ -15,7 +15,7 @@ Hoe.new('acts_as_runnable_code', ActsAsRunnableCode::VERSION) do |p|
   p.rubyforge_name = "runnable-code"
   p.remote_rdoc_dir = ""
   p.rsync_args << ' --exclude=statsvn/'
-  p.extra_deps << ['acts_as_wrapped_class', '>= 1.0.0']
+  p.extra_deps << ['acts_as_wrapped_class', '>= 1.0.1']
 end
 
 # vim: syntax=Ruby

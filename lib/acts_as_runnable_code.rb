@@ -3,7 +3,7 @@ require "rubygems"
 require "acts_as_wrapped_class"
 
 module ActsAsRunnableCode
-  VERSION="1.0.1"
+  VERSION="1.0.2"
   module InstanceMethods
     # Run the user's code in the context of a toplevel_object
     # The toplevel_object will be automatically wrapped and copied into the sandbox
@@ -33,8 +33,10 @@ module ActsAsRunnableCode
       end
       
       classes = self.class.runnable_code_options[:classes] || ActsAsWrappedClass::WRAPPED_CLASSES
+      
       classes.each do |c|
-        s.ref eval("#{c}Wrapper")
+        name = "#{c}Wrapper"
+        s.ref eval(name)
       end
       
       self.class.instance_variable_set("@sandbox", s) if self.class.runnable_code_options[:singleton_sandbox]
@@ -51,7 +53,32 @@ module ActsAsRunnableCode
     
     def runnable_code?
       true
-    end    
+    end
+
+    # a list of runnable classes in the format ["SomeClassWrapper", "OtherClassWraper"]
+    def runnable_classes
+      (runnable_code_options[:classes] || ActsAsWrappedClass::WRAPPED_CLASSES).collect { |c| "#{c}Wrapper" }
+    end
+        
+    # a list of runnable methods in the format {"SomeClassWrapper" => ["method_a", "method_b"], "OtherClassWraper" => ["method_c", "method_d"]]
+    def runnable_methods
+      meths = {}
+      runnable_classes.each { |c|
+        klass = eval("::#{c}")
+        meths[c.to_s] ||= []
+        meths[c.to_s] += klass.allowed_methods if klass.respond_to?(:allowed_methods)
+      }
+      meths
+    end
+    
+    # same as runnable methods but excludes all the methods of +Object
+    def runnable_methods_no_object
+      newv = {}
+      runnable_methods.each do |k,v|
+        newv[k] = v - Object.public_instance_methods
+      end
+      newv
+    end
   end
   
   # Mark this class as containing a method which returns user generated code.
