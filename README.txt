@@ -1,12 +1,12 @@
 ActsAsRunnableCode
     by David Stevenson
-    http://elctech.com/blog
+    http://flouri.sh
 
 == DESCRIPTION:
   
 ActsAsRunnable attempts to make the Freaky Freaky Sandbox easier to use.  It assumes that you have a class that has instances that store user uploaded code in them.  It also assumes that you want use your classes in the sandbox with reduced "safe" functionality provided by acts_as_wrapped_class.  Finally, it assumes that you want to evaluate an instance of user uploaded code within the context of some instance of a wrapped class.
 
-See the example app using this gem: http://tictactoe.mapleton.net
+See some example apps using this gem: http://sandbox.flouri.sh
 
 == FEATURES/PROBLEMS:
   
